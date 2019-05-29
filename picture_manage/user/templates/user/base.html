@@ -1,0 +1,116 @@
+{% load bootstrap3 %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initail-scale=1">
+        <title>Document Manage</title>
+
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+        <link rel="stylesheet" href="/picture/static/css/title.css">
+        <script src="/picture/static/js/jquery-3.3.1.min.js"></script>
+        <script src="/picture/static/js/bootstrap.min.js"></script>
+        <style>
+            .test{border: 2px solid #DD1; background:#EE1;}
+            .clear{padding: 0; margin: 0}
+        </style>
+        <script type="text/javascript">
+        function load(obj) {
+            document.getElementById('img2').src=obj.split(" ")[0];
+            document.getElementById('img_name').innerHTML=obj.split(" ")[1];
+            document.getElementById('modify_title').placeholder=obj.split(" ")[1];
+            document.getElementById('modify_title').value=obj.split(" ")[1];
+            document.getElementById('delete').href="delete_"+obj.split(" ")[2];
+            document.getElementById('img2').width="500";
+            document.getElementById('img2').height="500";
+            document.getElementById('modify_id').value = obj.split(" ")[2];
+            document.getElementById('window').style.display = 'block';
+            document.getElementById('cover').style.display = 'block';
+            var h = document.body.offsetHeight > document.documentElement.offsetHeight ? document.body.offsetHeight : document.documentElement.offsetHeight;
+            document.getElementById('cover').style.height = h+"px";
+        }
+        function cancel() {
+            document.getElementById('window').style.display = 'none';
+            document.getElementById('cover').style.display = 'none';
+        }
+        function modify() {
+            document.getElementById("modify").style.display = 'none';
+            document.getElementById('img_name').style.display = 'none';
+            document.getElementById('modify_title').style.display = 'block';
+            document.getElementById('check').style.display = 'block';
+            document.getElementById('cancel').style.display = 'block';
+        }
+        function modify_cancel() {
+            document.getElementById("modify").style.display = 'block'
+            document.getElementById('img_name').style.display = 'block';
+            document.getElementById('modify_title').style.display = 'none';
+            document.getElementById('check').style.display = 'none';
+            document.getElementById('cancel').style.display = 'none';
+        }
+        {#function click1(file) {#}
+        {#    alert("sssss");#}
+        {#    $.ajax({#}
+        {#        type: "get",#}
+        {#        url: "/picture/download",#}
+        {#        data: {#}
+        {#          "file" : file,#}
+        {#        },#}
+        {#        success : function(data) {#}
+        {#            if (data.type == "application/x-msdownload") {         #}
+        {#                var a = document.createElement("a");         #}
+        {#                a.download = fileName;         #}
+        {#                a.href = window.URL.createObjectURL(data);         #}
+        {#                a.click();         #}
+        {#                return;       #}
+        {#            }#}
+        {##}
+        {#        },#}
+        {#      });#}
+        {# }#}
+        </script>
+    </head>
+
+    <body>
+
+        <!-- Static navbar -->
+        <nav class="navbar" style="height: 55px;border-radius: 0px;background-color: azure;">
+            <div class="container" style="height: 40px;">
+
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed"
+                            data-toggle="collapse" data-target="#navbar"
+                            aria-expanded="false" aria-controls="navbar">
+                    </button>
+                    <em><a class="navbar-brand" style="font-size: 30px;" href="{% url 'user:login' %}">
+                        Document Manage</a></em>
+                </div>
+
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right " style="font-size: 15px;">
+                        {% if user.is_authenticated %}
+                            <li><a>Hello,{{ user.username }}.</a></li>
+                            <li><a href="{% url 'user:logout' %}">log out</a></li>
+                        {% else %}
+                            <li><a href="{% url 'user:register' %}">register</a></li>
+                            <li><a href="{% url 'user:login' %}">log in</a></li>
+                        {% endif %}
+                    </ul>
+                </div><!--/.nav-collapse -->
+                
+            </div>
+        </nav>
+
+        <div class="container">
+
+            <div>
+                {% block header %}{% endblock header %}
+            </div>
+            <div>
+                {% block content %}{% endblock content %}
+            </div>
+        </div><!--/container-->
+    </body>
+</html>

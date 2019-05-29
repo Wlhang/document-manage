@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索框页面</title>
+</head>
+<body>
+    <form method="post" action="search.html">
+        {% csrf_token %}
+        关键字：<input type="text"name="keywords" /><br/>
+        <input type="submit" value="搜索">
+    </form>
+    <table>
+        <tr>
+            <td>
+                {{ values }}
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

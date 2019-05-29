@@ -1,0 +1,72 @@
+{% extends "user/base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+        <div class="container">
+            <table border="0px" style="margin-bottom: 20px;">
+                <tr>
+                    <form action="submit" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <td>
+                            <span style="font-size: 15px;">{% bootstrap_form form1 %}</span>
+                        </td>
+                        <td width="470px">
+                            <input class="form-control" type="submit" value="上传" style="width: 60px;color: dodgerblue;margin-top: 10px;margin-left: 3px">
+                        </td>
+                    </form>
+                    <form method="post" action="search.html">
+                        <td>
+                            {% csrf_token %}
+                            <span style="font-size: 15px;">{% bootstrap_form form2 %} </span>
+
+                        </td>
+                        <td>
+                            <input class="form-control" type="submit"  style="color: dodgerblue;margin-top: 10px;margin-left: 3px" value="搜索">
+                        </td>
+                    </form>
+                </tr>
+            </table>
+        </div>
+    <div class="container" style="margin-bottom: 20px">
+        {% for picture in pictures %}
+            <div class="col-md-2" style="padding: 0px;height: 210px;">
+                <img src="/media/{{ picture.picture}}" width="150" height="150" onclick="load('/media/{{ picture.picture}} {{ picture.title }} {{ picture.picture_id }}')" />
+                <span style="width: 150px;text-align: center;display:block;word-wrap:break-word;"><strong>{{ picture.title|truncatechars_html:18 }}</strong></span>
+                <div><a href="download/{{ picture.picture_id }}" download="{{ picture.title }}" style="position: relative;left: 23%;"><button class="btn btn-primary" style="width: 48px;height: 32px;padding: 0px;">下载</button></a></div>
+            </div>
+        {% endfor %}
+    </div>
+    <div onclick="cancel()" id="cover" style="opacity:0.3;background-color:#000;width:100%;height:100%;position: absolute;left:0;top:0;display:none;overflow: hidden;"></div>
+<!--弹出层，-->
+    <div id="window" style=" width:600px;z-index:1001;
+    position: fixed; display:none;bottom:18%; left:20%;background-color: ghostwhite">
+         <table style="width: 100%;">
+             <tr>
+                 <td style="width: 500px;height: 500px">
+                     <img id="img2" src="" />
+                 </td>
+                 <td>
+                     <a id="delete" href="delete">
+                         <input type="button" value="删除" class="form-control" style="position: absolute;top: 10px;right: 10px;width: 80px;height: 40px;color: red;font-size: 20px">
+                     </a>
+                 </td>
+             </tr>
+             <tr style="height: 36px;">
+                 <lable id="img_name" style="vertical-align: top;overflow: hidden;display: block;width: 130px;font-size: 30px;position:absolute;bottom:0.5%;left: 25%;height: 40px;"></lable>
+                 <button onclick="modify()" id="modify" class="form-control" style="display: block;color: dodgerblue;font-size: 20px;padding: 0px;position:absolute;bottom:0;right: 40%;width: 60px;height: 35px;">编辑</button>
+                 <form action="modify" method="post">
+                     <td style="width: 500px;height: 35px">
+                            {% csrf_token %}
+                            <input type="text" name="modify_id" id="modify_id" style="display: none;" />
+                            <input type="text" name="modify_title" id="modify_title" placeholder="title" class="form-control" style="display: none;font-size: 20px;width: 200px;position:absolute;bottom:0;left: 12%" required />
+                     </td>
+                     <input type="submit" onclick="modify_check()" id="check" value="确认" class="form-control" style="display: none;color: dodgerblue;font-size: 20px;padding: 0px;position:absolute;bottom:0;right: 42%;width: 60px;height: 35px;"></input>
+                 </form>
+                     <button onclick="modify_cancel()" id="cancel" class="form-control" style="display: none;color: dodgerblue;font-size: 20px;padding: 0px;position:absolute;bottom:0;right: 30%;width: 60px;height: 35px;">取消</button>
+                 <td>&nbsp;</td>
+             </tr>
+
+         </table>
+    </div>
+    <input runat="server" id="baba" type="hidden" value="y"/>
+{% endblock %}

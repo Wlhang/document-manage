@@ -1,0 +1,18 @@
+{% extends "user/base.html" %}
+{% load bootstrap3 %}
+
+{% block header %}
+    <h2  class="page-header">Log in you account.</h2>
+{% endblock header %}
+
+{% block content %}
+
+    <form method="post" action="{% url 'user:login' %}" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <span style="color: red">{{ status }}</span>
+        {% buttons %}
+            <button name="submit" class="btn btn-primary">log in</button>
+        {% endbuttons %}
+    </form>
+{% endblock content %}

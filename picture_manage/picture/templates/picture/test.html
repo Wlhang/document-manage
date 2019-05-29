@@ -1,0 +1,17 @@
+{% extends "user/base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+
+<div class="c1"><strong>picture</strong></div>
+    <a href="http://127.0.0.1:8000/picture/add?num1=10&num2=20">add</a>
+    <a href="http://127.0.0.1:8000/picture/multiply-10-20">multi</a><br/>
+    sum={{ sum }}<br/>
+    multiply={{ multiply}}
+    <form action="test.html" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="filename"/>
+        <input type="submit" value="上传">
+    </form>
+    {{ file }}
+{% endblock %}
