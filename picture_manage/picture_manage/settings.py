@@ -25,7 +25,7 @@ SECRET_KEY = '3r$^ns=rdv3_x*uzp)))fuiew_upoe1j9njj%z-gc%6t*@ln9%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['47.102.150.129']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -134,5 +134,5 @@ STATIC_URL = '/picture/static/'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'picture/media')
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
